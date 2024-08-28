@@ -1,0 +1,102 @@
+This file shows where ERIClitplinuxfirewall_KGB tests have moved in the refactoring of February 2018.
+It also outlines the obsoleted TMS test cases.
+
+The 3 new scripts are:
+testset_firewall_rule_positive.py, which contains:
+    test_01_p_default_ports
+    test_02_p_create_rules
+    test_03_p_update_remove_rules
+testset_firewall_rule_negative_validation.py, which contains:
+    test_01_n_duplicate_validation
+testset_firewall_load_rules_xml.py, which contains:
+    test_01_p_load_rules_from_XML
+
+
+The following scripts and their tests have been obsoleted. Below shows where their functionality is now tested.
+##############################
+testset_story199859.py
+##############################
+test_01_p_snat_rules_node --> test_02_p_create_rules, test_03_p_update_remove_rules
+
+test_02_p_snat_rules_persistence_idempotent --> test_02_p_create_rules (idempotent tasks), test_03_p_update_remove_rules (rules persist after rebooting node)
+
+##############################
+testset_story2075_2076_2892.py
+##############################
+test_01_p_create_firewall_rule_positive_validation --> test_02_p_create_rules, test_03_p_update_remove_rules
+
+test_02_n_create_firewall_rule_negative_validation --> ATs
+(ERIClitplinuxfirewall - test_02_n_create_firewall_rule_negative_validation.at; ERIClitplinuxfirewallapi - test_02_n_create_firewall_rule_negative_validation.at)
+
+test_04_p_check_firewall_config_creates_default_rules --> test_01_p_default_ports
+
+test_05_p_create_remove_firewall_rules_cluster_node_level --> test_01_p_load_rules_from_XML
+
+test_08_p_create_firewall_rule_disable --> test_02_p_create_rules (drop_all=False), test_03_p_update_remove_rules (drop_all=True)
+
+test_13_p_firewall_rules_export_load_xml --> ATs (ERIClitplinuxfirewall - test_13_p_firewall_rules_export_load_xml.at)
+
+test_14_p_firewall_rules_stop_plan --> test_02_p_create_rules
+
+test_16_p_update_firewall_rule_positive_validation --> ATs (ERIClitplinuxfirewallapi - test_16_p_update_firewall_rule_positive_validation.at)
+
+test_17_n_update_firewall_rule_negative_validation -->ATs (ERIClitplinuxfirewallapi - test_17_n_update_firewall_rule_negative_validation.at; ERIClitplinuxfirewall - test_17_n_update_firewall_rule_negative_validation.at)
+
+test_18_p_update_firewall_rules --> test_02_p_create_rules, test_03_p_update_remove_rules
+
+test_19_n_remove_firewall_rule --> ATs (ERIClitplinuxfirewall - test_19_n_remove_firewall_rule.at)
+
+test_20_p_import_updated_firewall_rules --> test_01_p_load_rules_from_XML
+
+test_21_p_create_firewall_rules_purges_manually_added_rules --> test_02_p_create_rules [test_21_p_create_firewall_rules_purges_manually_added_rules is now called obs_21_p_create_firewall_rules_purges_manually_added_rules]
+
+test_22_p_remove_firewall_config --> test_01_p_load_rules_from_XML
+
+test_23_p_remove_firewall_node_config --> test_01_p_load_rules_from_XML
+
+test_24_p_remove_firewall_ms_config --> test_01_p_load_rules_from_XML
+
+test_25_p_remove_fw_cluster_config_then_node_config --> test_01_p_load_rules_from_XML
+
+test_26_p_remove_fw_node_config_then_cluster_config --> test_01_p_load_rules_from_XML
+
+test_28_n_check_ports_are_closed --> test_01_p_default_ports
+
+test_30_p_create_update_remove_duplicate_rule_split_chain --> test_01_n_duplicate_validation
+
+test_31_p_remove_and_create_same_rule --> test_01_n_duplicate_validation
+
+test_32_n_remove_rule_from_cluster_and_create_on_node --> test_01_n_duplicate_validation
+
+test_33_p_create_firewall_rules_with_string_algo --> test_02_p_create_rules (create rules), test_03_p_update_remove_rules (reboot node, remove rules)
+
+test_34_p_update_firewall_rules_with_string_algo --> test_03_p_update_remove_rules
+
+test_35_p_export_load_string_algo_rules --> ATs (ERIClitplinuxfirewall - test_35_p_export_load_string_algo_rules.at)
+
+##############################
+testset_story214216.py
+##############################
+test_01_p_create_firewall_rules --> test_02_p_create_rules
+
+test_02_p_update_firewall_rules --> test_03_p_update_remove_rules
+
+##############################
+testset_story217079.py
+##############################
+test_07_p_multiple_icmp_rules --> test_02_p_create_rules
+
+
+
+TMS
+The TMS updates that have been made during this update are as follows:
+NEW TEST --> OLD TMS ID
+test_01_p_load_rules_from_XML --> litpcds_2076_tc20
+test_01_n_duplicate_validation --> litpcds_106903_tc30
+test_01_p_default_ports --> litpcds_2892_tc28
+test_02_p_create_rules --> litpcds_2076_tc01
+test_03_p_update_remove_rules --> litpcds_2076_tc18
+
+The obsoleted TMS test cases are:
+litpcds_2076_tc01, litpcds_2076_tc04, litpcds_2076_tc05, litpcds_2076_tc08, litpcds_2076_tc14, litpcds_2076_tc18, litpcds_2076_tc20, litpcds_2076_tc21, litpcds_2076_tc22, litpcds_2076_tc23, litpcds_2076_tc24, litpcds_2076_tc25, litpcds_2076_tc26, litpcds_2892_tc28, litpcds_106903_tc30, litpcds_106903_tc31, litpcds_106903_tc32, torf_199859_tc01, torf_199859_tc02, torf_200553_tc01, torf_200553_tc02, torf_214216_tc01, torf_214216_tc02, torf_217079_tc07
+These are the TMS IDs that are no longer updated.

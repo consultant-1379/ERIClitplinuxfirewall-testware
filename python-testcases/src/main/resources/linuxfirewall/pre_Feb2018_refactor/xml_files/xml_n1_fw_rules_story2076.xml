@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<litp:firewall-node-config-rules-collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:litp="http://www.ericsson.com/litp" xsi:schemaLocation="http://www.ericsson.com/litp litp-xml-schema/litp.xsd" id="rules">
+    <litp:firewall-rule id="fw_2076e">
+    <chain>PREROUTING</chain>
+    <destination>10.45.239.85-10.45.239.87</destination>
+    <dport>162</dport>
+    <jump>REDIRECT</jump>
+    <name>70 test20e</name>
+    <proto>udp</proto>
+    <provider>iptables</provider>
+    <source>10.45.239.84-10.45.239.85</source>
+    <state>NEW</state>
+    <table>nat</table>
+    <toports>30162</toports>
+  </litp:firewall-rule>
+  <litp:firewall-rule id="fw_2076d">
+    <action>accept</action>
+    <destination>10.45.239.85-10.45.239.86</destination>
+    <dport>30000-65000</dport>
+    <name>079 test20d</name>
+    <proto>udp</proto>
+    <provider>iptables</provider>
+    <source>10.45.239.84-10.45.239.85</source>
+    <state>NEW</state>
+  </litp:firewall-rule>
+</litp:firewall-node-config-rules-collection>

@@ -1,0 +1,504 @@
+{
+   "1. Single sport IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+		"--sport 110",
+		"-m comment",
+		"--comment \"21421601 test01 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m comment",
+                "--comment \"121421601 test01 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"21421601 test01\" sport=110 provider=iptables action=drop",
+        "identifier": "214216_test01"
+    },
+    "2. Single sport IPV6": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+		"--sport 110",
+		"-m comment",
+		"--comment \"21421602 test02 ipv6\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m comment",
+                "--comment \"121421602 test02 ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"21421602 test02\" sport=110 provider=ip6tables action=drop",
+        "identifier": "214216_test02"
+    },
+    "5. Single dport IPV6": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"21421605 test05 ipv6\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"121421605 test05 ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"21421605 test05\" dport=9200 provider=ip6tables action=drop",
+        "identifier": "214216_test05"
+    },
+    "7. Multiple sports IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+		"--sports 110,111",
+		"-m comment",
+		"--comment \"21421607 test07 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m comment",
+                "--comment \"121421607 test07 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"21421607 test07\" sport=110,111 provider=iptables action=drop",
+        "identifier": "214216_test07"
+    },
+    "8. Multiple sports IPV6": {
+
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+		"--sports 110,111",
+		"-m comment",
+		"--comment \"21421608 test08 ipv6\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m comment",
+                "--comment \"121421608 test08 ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"21421608 test08\" sport=110,111 provider=ip6tables action=drop",
+        "identifier": "214216_test08"
+    },
+    "10. Multiple dports IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421610 test10 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421610 test10 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"21421610 test10\" dport=9200,9201 provider=iptables action=drop",
+        "identifier": "214216_test10"
+    },
+    "11. Multiple dports IPV6": {
+
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421611 test11 ipv6\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421611 test11 ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"21421611 test11\" dport=9200,9201 provider=ip6tables action=drop",
+        "identifier": "214216_test11"
+    },
+    "13. Single sport and multiple dports IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421613 test13 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421613 test13 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"21421613 test13\" sport=110 dport=9200,9201 provider=iptables action=drop",
+        "identifier": "214216_test13"
+    },
+    "15. Single dport and multiple sports IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+		"--dport 9200",
+                "-m multiport",
+                "--sports 110,111",
+		"-m comment",
+		"--comment \"21421615 test15 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+		"--dport 9200",
+                "-m multiport",
+                "--sports 110,111",
+                "-m comment",
+                "--comment \"121421615 test15 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"21421615 test15\" sport=110,111 dport=9200 provider=iptables action=drop",
+        "identifier": "214216_test15"
+    },
+    "17A. Single dport and single sport IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"214216171 test17A ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1214216171 test17A ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"214216171 test17A\" sport=110 dport=9200 provider=iptables action=drop",
+        "identifier": "214216_test17A"
+    },
+    "17B. Single dport and single sport IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"214216172 test17B ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1214216172 test17B ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"214216172 test17B\" sport=110 dport=9200 provider=iptables action=drop",
+        "identifier": "214216_test17B"
+    },
+    "17C. Single dport and single sport IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"214216173 test17C ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1214216173 test17C ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"214216173 test17C\" sport=110 dport=9200 provider=iptables action=drop",
+        "identifier": "214216_test17C"
+    },
+    "17D. Single dport and single sport IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"214216174 test17D ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1214216174 test17D ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"214216174 test17D\" sport=110 dport=9200 provider=iptables action=drop",
+        "identifier": "214216_test17D"
+    },
+    "19. Multiple dports and multiple sports IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421619 test19 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421619 test19 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"21421619 test19\" sport=110,111 dport=9200,9201 provider=iptables action=drop",
+        "identifier": "214216_test19"
+    },
+    "23. Multiple dports and multiple sports IPV6": {
+
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421623 test23 ipv6\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421623 test23 ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"21421623 test23\" sport=110,111 dport=9200,9201 provider=ip6tables action=drop",
+        "identifier": "214216_test23"
+    }
+
+
+}
+

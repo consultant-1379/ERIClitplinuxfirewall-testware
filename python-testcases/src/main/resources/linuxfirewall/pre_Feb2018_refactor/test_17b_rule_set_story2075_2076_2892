@@ -1,0 +1,101 @@
+[
+    {
+        "description": "46. Update rule to have an invalid combination of provider and destination",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of ip6tables and an IPv4 address for the 'provider' and 'destination' properties."
+            }
+        ],
+        "props": "destination=\"10.10.10.10\" provider=\"ip6tables\""
+    },
+    {
+        "description": "47. Update rule to have an invalid combination of provider and source",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of ip6tables and an IPv4 address for the 'provider' and 'source' properties."
+            }
+        ],
+        "props": "source=\"10.10.10.10\" provider=\"ip6tables\""
+    },
+    {
+        "description": "48. Update rule to have an invalid combination of provider and source",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of iptables and an IPv6 address for the 'provider' and 'source' properties."
+            }
+        ],
+        "props": "source=\"fe80::a00:27ff:febc:c8e1/64\" provider=\"iptables\""
+    },
+    {
+        "description": "49. Update rule to have an invalid combination of provider and destination",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of iptables and an IPv6 address for the 'provider' and 'destination' properties."
+            }
+        ],
+        "props": "destination=\"fe80::a00:27ff:febc:c8e1\" provider=\"iptables\""
+    },
+    {
+        "description": "50. Update rule to have an invalid combination of source and destination",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of an IPv6 address and an IPv4 address for the 'destination' and 'source' properties."
+            }
+        ],
+        "props": "source=\"fe80::a00:27ff:febc:c8e1\" destination=\"10.10.10.5\""
+    },
+    {
+        "description": "51. Update rule to have an invalid combination of source and destination",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of an IPv4 address and an IPv6 address for the 'source' and 'destination' properties."
+            }
+        ],
+        "props": "destination=\"fe80::a00:27ff:febc:c8e1\" source=\"10.10.10.5\""
+    },
+    {
+        "description": "52. Update rule to have sport list >15",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"sport\"    A maximum of 15 ports are accepted."
+            }
+        ],
+        "props": "sport=\"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16\""
+    },
+    {
+        "description": "53. Update rule to have dport list >15",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    A maximum of 15 ports are accepted."
+            }
+        ],
+        "props": "dport=\"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16\""
+    },
+    {
+        "description": "54. Update rule to have toports list >15",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"toports\"    A maximum of 15 ports are accepted."
+            }
+        ],
+        "props": "toports=\"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16\""
+    },
+    {
+        "description": "55. Update rule to have a source with an invalid range",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"source\"    Invalid range value '10.10.10.10' must come before '10.10.10.5'"
+            }
+        ],
+        "props": "source=\"10.10.10.10-10.10.10.5\" provider=\"iptables\""
+    },
+    {
+        "description": "56. Update rule to have destination containing an unsupported range",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of no provider and an IPv4 address for the 'provider' and 'source / destination' properties. (Please set provider to 'iptables')"
+            }
+        ],
+        "props": "destination=\"10.10.1010-10.10.10.5\""
+    }
+]

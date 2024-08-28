@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<litp:firewall-cluster-config-rules-collection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:litp="http://www.ericsson.com/litp" xsi:schemaLocation="http://www.ericsson.com/litp litp-xml-schema/litp.xsd" id="rules">
+  <litp:firewall-rule id="fw_2076">
+    <action>accept</action>
+    <chain>INPUT</chain>
+    <destination>129.167.122.99</destination>
+    <dport>65531</dport>
+    <name>201 test20</name>
+    <proto>tcp</proto>
+    <provider>iptables</provider>
+    <source>129.167.122.99</source>
+    <sport>1123</sport>
+    <state>NEW</state>
+  </litp:firewall-rule>
+  <litp:firewall-rule id="fw_icmp">
+    <action>accept</action>
+    <name>100 icmp</name>
+    <proto>icmp</proto>
+  </litp:firewall-rule>
+</litp:firewall-cluster-config-rules-collection>

@@ -1,0 +1,271 @@
+{
+   "1. Update algo prop": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 129.167.122.99/32",
+                "-p tcp",
+		        "--dport 9200",
+		        "-m comment",
+		        "--comment \"020 test1 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+		        "--to 65535",
+		        "-m state",
+		        "--state NEW",
+		        "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-s 129.167.122.99/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1020 test1 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"020 test1\" dport=9200 proto=tcp action=accept provider=iptables source=129.167.122.99 algo=bm string=\"DELETE /enm_logs-application-\"",
+       "updated_prop": "algo=kmp"
+    },
+   "2. Update string prop": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 129.167.122.99/32",
+                "-p tcp",
+		        "--dport 9200",
+		        "-m comment",
+		        "--comment \"026 test2 ipv4\"",
+                "-m string",
+                "--string \"new test string\"",
+                "--algo kmp",
+		        "--to 65535",
+		        "-m state",
+		        "--state NEW",
+		        "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-s 129.167.122.99/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1026 test2 ipv4\"",
+                "-m string",
+                "--string \"new test string\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"026 test2\" dport=9200 proto=tcp action=accept provider=iptables source=129.167.122.99 algo=kmp string=\"DELETE /enm_logs-application-\"",
+       "updated_prop": "string=\"new test string\""
+    },
+    "2. Set negated IP source": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "! -s 129.167.122.91/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"028 test3 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "! -s 129.167.122.91/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1028 test3 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"028 test3\" dport=9200 proto=tcp action=accept provider=iptables source=129.167.122.91 algo=kmp string=\"DELETE /enm_logs-application-\"",
+        "updated_prop": "source='!129.167.122.91'"
+    },
+    "3. Set negated IP subnet with whitespace": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "! -s 192.168.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"032 test7 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "! -s 192.168.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1032 test7 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"032 test7\" dport=9200 proto=tcp action=accept provider=iptables source='192.168.0.0/20' algo=kmp string=\"DELETE /enm_logs-application-\"",
+        "updated_prop": "source='! 192.168.0.0/20'"
+    },
+        "4. Update action from DROP to REJECT": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "! -s 192.169.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"062 test9 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "--reject-with icmp-port-unreachable",
+                "-j REJECT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "! -s 192.169.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1062 test9 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "--reject-with icmp-port-unreachable",
+                "-j REJECT"
+
+            ]
+
+        ],
+        "props": "name=\"062 test9\" dport=9200 proto=tcp action=drop provider=iptables source='!192.169.0.0/20' algo=kmp string=\"DELETE /enm_logs-application-\"",
+        "updated_prop": "action=reject"
+        },
+    "5. Delete algo and string property": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 192.168.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"060 test8 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-s 192.168.0.0/20",
+                "-p tcp",
+                 "--dport 9200",
+                "-m comment",
+                "--comment \"1060 test8 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"060 test8\" dport=9200 proto=tcp action=accept provider=iptables source='192.168.0.0/20' algo=kmp string=\"DELETE /enm_logs-application-\"",
+        "delete_prop": "algo string"
+    },
+        "6. Delete REJECT action": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "! -s 192.168.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"064 test10 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "! -s 192.168.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1064 test10 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"064 test10\" dport=9200 proto=tcp action=reject provider=iptables source='!192.168.0.0/20'",
+        "delete_prop": "action"
+    }
+}
+

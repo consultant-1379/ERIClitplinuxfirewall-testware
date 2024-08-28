@@ -1,0 +1,533 @@
+[
+    {
+        "description": "1. Update Name to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value ''."
+            }
+        ],
+        "props": "name=\"\""
+    },
+    {
+        "description": "2. Update name with an underscores",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value '1_test'."
+            }
+        ],
+        "props": "name=\"1_test\""
+    },
+    {
+        "description": "3. Update name to all capitals",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'ABC'."
+            }
+        ],
+        "props": "name=\"ABC\""
+    },
+    {
+        "description": "4. Update to a name that does not start with number",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'test'."
+            }
+        ],
+        "props": "name=test"
+    },
+    {
+        "description": "4a.Update Name to not contain space",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value '21test'."
+            }
+        ],
+        "props": "name=\"21test\""
+    },
+    {
+        "description": "4b.Update Name to not contain chain number",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'testa testb'."
+            }
+        ],
+        "props": "name=\"testa testb\""
+    },
+    {
+        "description": "4c.Update Name to not contain chain number or space",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'testab'."
+            }
+        ],
+        "props": "name=\"testab\""
+    },
+    {
+        "description": "5. Update proto to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"proto\"    Invalid value ''."
+            }
+        ],
+        "props": "name=\"170 test17\" proto=\"\""
+    },
+    {
+        "description": "6. Update proto to uppercase",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"proto\"    Invalid value 'ICMP'."
+            }
+        ],
+        "props": "name=\"170 test17\" proto=ICMP"
+    },
+    {
+        "description": "7. Update action to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"action\"    Invalid value ''."
+            }
+        ],
+        "props": "name=\"170 test17\" action=\"\""
+    },
+    {
+        "description": "8. Update action to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"action\"    Invalid value 'ACCEPT'."
+            }
+        ],
+        "props": "action=ACCEPT"
+    },
+    {
+        "description": "9. Update sport to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"sport\"    Invalid value ''."
+            }
+        ],
+        "props": "sport=\"\""
+    },
+    {
+        "description": "10. Update sport with unsupported characters",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"sport\"    Invalid value 'abc'."
+            }
+        ],
+        "props": "sport=abc"
+    },
+    {
+        "description": "11. Update dport to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    Invalid value ''."
+            }
+        ],
+        "props": "dport=\"\""
+    },
+    {
+        "description": "11a.Update dport to exceed max allowed value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    Invalid value '67890'."
+            }
+        ],
+        "props": "dport=\"67890\""
+    },
+    {
+        "description": "12. Update dport to contain unsupported characters",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    Invalid value 'abc'."
+            }
+        ],
+        "props": "dport=abc"
+    },
+    {
+        "description": "13. Update state to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"state\"    Invalid value ''."
+            }
+        ],
+        "props": "state=\"\""
+    },
+    {
+        "description": "15. Update source to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"source\"    Invalid value ''."
+            }
+        ],
+        "props": "source=\"\""
+    },
+    {
+        "description": "16. Update source to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"source\"    Invalid value '_'."
+            }
+        ],
+        "props": "source=_"
+    },
+    {
+        "description": "17. Update limit to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value ''."
+            }
+        ],
+        "props": "limit=\"\""
+    },
+    {
+        "description": "18. Update limit to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value '_'."
+            }
+        ],
+        "props": "limit=_"
+    },
+    {
+        "description": "19. Update table to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value ''."
+            }
+        ],
+        "props": "table=\"\""
+    },
+    {
+        "description": "20. Update table to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value 'input'."
+            }
+        ],
+        "props": "table=input"
+    },
+    {
+        "description": "21. Update table to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"destination\"    Invalid value ''."
+            }
+        ],
+        "props": "destination=\"\""
+    },
+    {
+        "description": "22. Update destination to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"destination\"    Invalid value '192,123,122,11'."
+            }
+        ],
+        "props": "destination=192,123,122,11"
+    },
+    {
+        "description": "23. Update iniface to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"iniface\"    Invalid value ''."
+            }
+        ],
+        "props": "iniface=\"\""
+    },
+    {
+        "description": "24. Update iniface to contain an unsupported characters",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"iniface\"    Invalid value 'eth,1'."
+            }
+        ],
+        "props": "iniface=eth,1"
+    },
+    {
+        "description": "25. Update iniface to contain .",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"iniface\"    Invalid value '123,123'."
+            }
+        ],
+        "props": "iniface=\"123,123\""
+    },
+    {
+        "description": "26. Update outiface to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"outiface\"    Invalid value ''."
+            }
+        ],
+        "props": "outiface=\"\""
+    },
+    {
+        "description": "27. Update outiface to contain an unsupported characters",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"outiface\"    Invalid value 'eth,1'."
+            }
+        ],
+        "props": "outiface=eth,1"
+    },
+    {
+        "description": "28. Update icmp to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"icmp\"    Invalid value ''."
+            }
+        ],
+        "props": "icmp=\"\""
+    },
+    {
+        "description": "29. Update icmp set to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"icmp\"    Invalid value 'echo-REPLY'."
+            }
+        ],
+        "props": "icmp=echo-REPLY"
+    },
+    {
+        "description": "30. Update chain to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"chain\"    Invalid value ''."
+            }
+        ],
+        "props": "chain=\"\""
+    },
+    {
+        "description": "31. Update chain to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"chain\"    Invalid value 'output'."
+            }
+        ],
+        "props": "chain=output"
+    },
+    {
+        "description": "32. Update provider to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"provider\"    Invalid value ''."
+            }
+        ],
+        "props": "provider=\"\""
+    },
+    {
+        "description": "33. Update provider to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"provider\"    Invalid value 'rubbish'."
+            }
+        ],
+        "props": "provider=rubbish"
+    },
+    {
+        "description": "34. Update log_level to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_level\"    Invalid value ''."
+            }
+        ],
+        "props": "log_level=\"\""
+    },
+    {
+        "description": "35. Update log_level to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_level\"    Invalid value 'INFO'."
+            }
+        ],
+        "props": "log_level=INFO"
+    },
+    {
+        "description": "36. Update log_prefix to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_prefix\"    Invalid value ''."
+            }
+        ],
+        "props": "log_prefix=\"\""
+    },
+    {
+        "description": "37. Update log_prefix to contain an unsupported value 9",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_prefix\"    Invalid value 'INFO_9'."
+            }
+        ],
+        "props": "log_prefix=INFO_9"
+    },
+    {
+        "description": "38. Update jump to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"jump\"    Invalid value ''."
+            }
+        ],
+        "props": "jump=\"\""
+    },
+    {
+        "description": "39. Update jump to an unsupported value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"jump\"    Invalid value '123'."
+            }
+        ],
+        "props": "jump=123"
+    },
+    {
+        "description": "40. Update toports to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"toports\"    Invalid value ''."
+            }
+        ],
+        "props": "toports=\"\""
+    },
+    {
+        "description": "41. Update toports to an invalid value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"toports\"    Invalid value 'Abc'."
+            }
+        ],
+        "props": "toports=Abc"
+    },
+    {
+        "description": "42. Update setdscp to empty",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"setdscp\"    Invalid value ''."
+            }
+        ],
+        "props": "setdscp=\"\""
+    },
+    {
+        "description": "43. Update setdscp to an invalid value",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"setdscp\"    Invalid value '01'."
+            }
+        ],
+        "props": "setdscp=01"
+    },
+    {
+        "description": "44. Update limit to empty ",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value ''."
+            }
+        ],
+        "props": "limit=\"\""
+    },
+    {
+        "description": "45. Update limit to be invalid ",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value '5c'."
+            }
+        ],
+        "props": "limit=5c"
+    },
+    {
+        "description": "45b. Update \"table\" set to invalid \"rawpost\" ",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value 'rawpost'."
+            }
+        ],
+        "props": "name=\"102 rawpost\" chain=\"PREROUTING\" table=\"rawpost\""
+    },
+    {
+        "description": "45c. Update \"table\" set to invalid \"broute\" ",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value 'broute'."
+            }
+        ],
+        "props": "name=\"102 rawpost\" chain=\"PREROUTING\" table=\"broute\""
+    },
+    {
+        "description": "57a. Check reserved chain number: '990 related established'",
+        "props": "name=\"990 related established\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '990' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57b. Check reserved chain number: '991 local loop'",
+        "props": "name=\"991 local loop\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '991' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57d. Check reserved chain number: '993 puppet'",
+        "props": "name=\"993 puppet\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '993' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57e. Check reserved chain number: '994 mco'",
+        "props": "name=\"994 mco\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '994' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57f. Check reserved chain number: '995 ntp'",
+        "props": "name=\"995 ntp\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '995' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57g. Check reserved chain number: '996 http'",
+        "props": "name=\"996 http\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '996' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57h. Check reserved chain number: '997 cobblerudp'",
+        "props": "name=\"997 cobblerudp\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '997' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57i. Check reserved chain number: '998 ssh'",
+        "props": "name=\"998 ssh\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '998' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57j. Check reserved chain number: '999 drop all'",
+        "props": "name=\"999 drop all\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '999' is a reserved chain number for default rules."
+            }
+        ]
+    }
+]

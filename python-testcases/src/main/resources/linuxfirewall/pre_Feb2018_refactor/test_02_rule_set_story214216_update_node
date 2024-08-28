@@ -1,0 +1,36 @@
+{
+    "12. Updates single dport IPV4 to multiple dports": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421612 test12 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421612 test12 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421612 test12\" dport=9200,9201",
+        "identifier": "214216_test04"
+    }
+}
+

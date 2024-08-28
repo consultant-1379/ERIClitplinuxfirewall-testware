@@ -1,0 +1,1784 @@
+{
+    "2.01. Create a rule with \"name\" containing a 1 digit string only, log level set to alert, log_prefix and jump set": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"005 ipv6\"",
+                "-j LOG",
+                "--log-prefix \"test\"",
+                "--log-level 1"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1005 ipv6\"",
+                "-j LOG",
+                "--log-prefix \"test\"",
+                "--log-level 1"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"005 ipv4\"",
+                "-j LOG",
+                "--log-prefix \"test\"",
+                "--log-level 1"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1005 ipv4\"",
+                "-j LOG",
+                "--log-prefix \"test\"",
+                "--log-level 1"
+            ]
+        ],
+        "props": "name=\"5\" jump=LOG log_prefix=test log_level=alert"
+    },
+    "2.02. Create a rule with \"name\" containing a 2 digits string only, and log_level=crit": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"089 ipv6\"",
+                "-j LOG",
+                "--log-level 2"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1089 ipv6\"",
+                "-j LOG",
+                "--log-level 2"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"089 ipv4\"",
+                "-j LOG",
+                "--log-level 2"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1089 ipv4\"",
+                "-j LOG",
+                "--log-level 2"
+            ]
+        ],
+        "props": "name=\"89\" jump=LOG log_level=crit"
+    },
+    "2.03. Create a rule with \"name\" containing a 3 digits string only and log_level=info": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"555 ipv6\"",
+                "-j LOG",
+                "--log-level 6"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1555 ipv6\"",
+                "-j LOG",
+                "--log-level 6"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"555 ipv4\"",
+                "-j LOG",
+                "--log-level 6"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1555 ipv4\"",
+                "-j LOG",
+                "--log-level 6"
+            ]
+        ],
+        "props": "name=\"555\" jump=LOG log_level=info"
+    },
+    "2.04. Create a rule with \"name\" containing a 6 digits string, log_level=err": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"555555 ipv6\"",
+                "-j LOG",
+                "--log-level 3"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1555555 ipv6\"",
+                "-j LOG",
+                "--log-level 3"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"555555 ipv4\"",
+                "-j LOG",
+                "--log-level 3"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1555555 ipv4\"",
+                "-j LOG",
+                "--log-level 3"
+            ]
+        ],
+        "props": "name=\"555555\" jump=LOG log_level=err"
+    },
+    "2.05. Create a rule with several parameters": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 129.167.122.99/32",
+                "-d 129.167.122.99/32",
+                "-i eth0",
+                "-p tcp",
+                "--sport 1123",
+                "--dport 65531",
+                "-m comment"
+            ]
+        ],
+        "props": "name=\"010 test3\" proto=tcp action=accept sport=1123 dport=65531 state=NEW source=129.167.122.99 destination=129.167.122.99 iniface=eth0 outiface=eth0 chain=INPUT provider=iptables "
+    },
+    "2.06. Create a rule with Name contains multiple spaces and log_level=debug and chain=OUTPUT": {
+        "expected_ipv6_rules": [
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1899 NAME ipv6\"",
+                " -j LOG",
+                "--log-level 7"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "-m comment",
+                "--comment \"1899 NAME ipv4\"",
+                "-j LOG",
+                "--log-level 7"
+            ]
+        ],
+        "props": "name=\" 899 NAME\" jump=LOG log_level=debug chain=OUTPUT"
+    },
+    "2.16. Source port set to single entry": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 1",
+                "-m comment",
+                "--comment \"049 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 1",
+                "-m comment",
+                "--comment \"1049 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 1",
+                "-m comment",
+                "--comment \"049 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 1",
+                "-m comment",
+                "--comment \"1049 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"49 test\" sport=1"
+    },
+    "2.29. Source port set to valid IP v6 subnet": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-s fe80::/64",
+                "-p tcp",
+                "-m comment",
+                "--comment \"061 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-s fe80::/64",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1061 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"61 test\" source=fe80::a00:27ff:febc:c8e1/64 provider=ip6tables"
+    },
+    "2.47 Create FORWARD chain rule for ipv6": {
+        "expected_ipv6_rules": [
+            [
+                "-A FORWARD",
+                "-p tcp",
+                "-s fe80::/64 ",
+                "-d fe80::/64 ",
+                "-m comment",
+                "--comment \"2077 forward ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"77 forward\" chain=\"FORWARD\" destination=\"fe80::a00:27ff:febc:c8e1/64\" source=\"fe80::a00:27ff:febc:c8e2/64\" provider=\"ip6tables\""
+    },
+    "2.48 Create PREROUTING chain rule for ipv4": {
+        "table": "nat",
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A PREROUTING",
+                "-d 10.10.10.130/32 ",
+                "-p udp ",
+                "--dport 162 ",
+                "-m comment ",
+                "--comment \"078 prerouting ipv4\" ",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"78 prerouting\" chain=\"PREROUTING\" proto=\"udp\" dport=\"162\" destination=\"10.10.10.130\" provider=\"iptables\" table=\"nat\""
+    },
+    "2.35. IN interface set to l0": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-i l0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"165 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1165 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-i l0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"165 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1165 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"165 test\" iniface=l0"
+    },
+    "2.41. ICMP type set to echo-request": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"071 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 8",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"1071 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 8",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"71 test\" icmp=echo-request proto=icmp provider=iptables"
+    },
+    "2.09. Create a rule with Name=\"0\"": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--comment \"000 ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--comment \"1000 ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--comment \"000 ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--comment \"1000 ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"0\""
+    },
+    "2.51 Create POSTROUTING chain rule for ipv6": {
+        "table": "mangle",
+        "expected_ipv6_rules": [
+            [
+                "-A POSTROUTING",
+                "-d 2001:db8:0:1:5054:ff:fe01:2346/128",
+                "-p udp",
+                "--dport 162",
+                "-m comment",
+                "--comment \"081 postrouting ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"81 postrouting\" chain=\"POSTROUTING\" proto=\"udp\" dport=\"162\" destination=\"2001:db8:0:1:5054:ff:fe01:2346\" provider=\"ip6tables\" table=\"mangle\""
+    },
+    "2.31. Destination port set to valid IP v4 subnet": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 10.10.2.0/24",
+                "-p tcp",
+                "-m comment",
+                "--comment \"063 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-s 10.10.2.0/24",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1063 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"63 test\" source=10.10.02.0/24 provider=iptables"
+    },
+    "2.52b. Duplicate rule with same name on different chains - RULE03": {
+        "expected_ipv6_rules": [
+            [
+                "-A FORWARD",
+                "-p tcp",
+                "--sport 9999",
+                "-m comment --comment \"2166 rule ipv6\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A FORWARD",
+                "-p tcp",
+                "--sport 9999",
+                "-m comment --comment \"2166 rule ipv4\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"166 rule\" chain=\"FORWARD\" sport=\"9999\""
+    },
+    "2.52b. Duplicate rule with same name on different chains - RULE02": {
+        "expected_ipv6_rules": [
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 9999",
+                "-m comment --comment \"1166 rule ipv6\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 9999",
+                "-m comment --comment \"1166 rule ipv4\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"166 rule\" chain=\"OUTPUT\" sport=\"9999\""
+    },
+    "2.43. Table set to mangle": {
+        "table": "mangle",
+        "expected_ipv6_rules": [
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 22",
+                "-m comment",
+                "--comment \"1073 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j DSCP",
+                "--set-dscp 0x10"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 22",
+                "-m comment",
+                "--comment \"1073 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DSCP",
+                "--set-dscp 0x10"
+            ]
+        ],
+        "props": "name=\"73 test\" sport=\"22\" table=\"mangle\" jump=\"DSCP\" setdscp=\"0x10\" chain=\"OUTPUT\" proto=\"tcp\""
+    },
+    "2.33. Destination port set to valid IP v6 address": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-s fe80::202:b3ff:fe1e:8330/128",
+                "-p tcp",
+                "-m comment",
+                "--comment \"065 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-s fe80::202:b3ff:fe1e:8330/128",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1065 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"65 test\" source=fe80:0000:0000:0000:0202:b3ff:fe1e:8330 provider=ip6tables"
+    },
+    "2.17. Source port set to maximun number of allowed entries": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"050 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"1050 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"050 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"1050 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"50 test\" sport=\"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15\""
+    },
+    "2.13. Proto set to tcp dport 555": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"046 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1046 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"046 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1046 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"46 test\" proto=tcp"
+    },
+    "2.22. Packet state set to NEW,ESTABLISHED,RELATED": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"054 test ipv6\"",
+                "-m state",
+                "--state NEW,RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1054 test ipv6\"",
+                "-m state",
+                "--state NEW,RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"054 test ipv4\"",
+                "-m state",
+                "--state NEW,RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1054 test ipv4\"",
+                "-m state",
+                "--state NEW,RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"54 test\" state=NEW,ESTABLISHED,RELATED"
+    },
+    "2.53a. Identical rules with unique names - RULE01": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"167 rule ipv6\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"1167 rule ipv6\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"167 rule ipv4\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"1167 rule ipv4\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"167 rule\" dport=\"22,80,111,443,3000,25151,9999\""
+    },
+    "2.44. Table set to raw": {
+        "table": "raw",
+        "expected_ipv6_rules": [
+            [
+                "-A PREROUTING",
+                "-p tcp",
+                "-m comment",
+                "--comment \"074 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A PREROUTING",
+                "-p tcp",
+                "-m comment",
+                "--comment \"074 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"74 test\" chain=\"PREROUTING\" table=\"raw\" "
+    },
+    "2.11. Proto set to icmp and limit set to 5/sec": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"044 test ipv6\"",
+                "-m limit",
+                "--limit 5/sec",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"1044 test ipv6\"",
+                "-m limit",
+                "--limit 5/sec",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"044 test ipv4\"",
+                "-m limit",
+                "--limit 5/sec",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"1044 test ipv4\"",
+                "-m limit",
+                "--limit 5/sec",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"44 test\" proto=icmp limit=5/sec"
+    },
+    "2.18. Dest port set to 15 multiple entries": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 12345,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"051 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 12345,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"1051 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 12345,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"051 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 12345,2,3,4,5,6,7,8,9,10,11,12,13,14,15",
+                "-m comment",
+                "--comment \"1051 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"51 test\" dport=\"12345,2,3,4,5,6,7,8,9,10,11,12,13,14,15\""
+    },
+    "2.23. Packet state set to ESTABLISHED,RELATED": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"055 test ipv6\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1055 test ipv6\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"055 test ipv4\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1055 test ipv4\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"55 test\" state=ESTABLISHED,RELATED"
+    },
+    "2.19. Dest port set to multiple range": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 1234:65535",
+                "-m comment",
+                "--comment \"052 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 1234:65535",
+                "-m comment",
+                "--comment \"1052 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 1234:65535",
+                "-m comment",
+                "--comment \"052 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--dports 1234:65535",
+                "-m comment",
+                "--comment \"1052 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"52 test\" dport=\"1234-65535\""
+    },
+    "2.32. Destination port set to valid IP v4 range": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m iprange",
+                "--src-range 10.10.10.15-10.10.10.20",
+                "-m comment",
+                "--comment \"164 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m iprange",
+                "--src-range 10.10.10.15-10.10.10.20",
+                "-m comment",
+                "--comment \"1164 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"164 test\" source=10.10.10.15-10.10.10.20 provider=iptables"
+    },
+    "2.52a. Duplicate rule with same name on different chains - RULE01": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 9999",
+                "-m comment --comment \"166 rule ipv6\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 9999",
+                "-m comment --comment \"166 rule ipv4\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"166 rule\" chain=\"INPUT\" sport=\"9999\""
+    },
+    "2.53b. Identical rules with unique names - RULE02": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"168 rule ipv6\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"1168 rule ipv6\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"168 rule ipv4\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport --dports 22,80,111,443,3000,25151,9999",
+                "-m comment --comment \"1168 rule ipv4\"",
+                "-m state --state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"168 rule\" dport=\"22,80,111,443,3000,25151,9999\""
+    },
+    "2.39. ICMP type set to 8": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"069 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 8",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"1069 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 8",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"69 test\" icmp=8 proto=icmp provider=iptables"
+    },
+    "2.07. Create a rule with Name that begins with one digit and by a space and another digit and log_level=notice and jump=LOG": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"002 1name ipv6\"",
+                "-j LOG",
+                "--log-level 5"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1002 1name ipv6\"",
+                " -j LOG",
+                "--log-level 5"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"002 1name ipv4\"",
+                "-j LOG",
+                "--log-level 5"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1002 1name ipv4\"",
+                " -j LOG",
+                "--log-level 5"
+            ]
+        ],
+        "props": "name=\"2 1name \" jump=LOG log_level=notice"
+    },
+    "2.38. ICMP type set to 0": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"068 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 0",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"1068 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 0",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"68 test\" icmp=0 proto=icmp provider=iptables"
+    },
+    "2.14. Proto set to udp": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p udp",
+                "-m comment",
+                "--comment \"047 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p udp",
+                "-m comment",
+                "--comment \"1047 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p udp",
+                "-m comment",
+                "--comment \"047 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p udp",
+                "-m comment",
+                "--comment \"1047 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"47 test\" proto=udp"
+    },
+    "2.12. Proto set to ipv6-icmp and limit set to 56/day": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p ipv6-icmp",
+                "-m comment",
+                "--comment \"045 test ipv6\"",
+                "-m limit",
+                "--limit 56/day",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p ipv6-icmp",
+                "-m comment",
+                "--comment \"1045 test ipv6\"",
+                "-m limit",
+                "--limit 56/day",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p ipv6-icmp",
+                "-m comment",
+                "--comment \"045 test ipv4\"",
+                "-m limit",
+                "--limit 56/day",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p ipv6-icmp",
+                "-m comment",
+                "--comment \"1045 test ipv4\"",
+                "-m limit",
+                "--limit 56/day",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"45 test\" proto=ipv6-icmp limit=56/day"
+    },
+    "2.17a. Source port set to a range": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT ",
+                "-p tcp ",
+                "-m multiport ",
+                "--sports 1234:65535 ",
+                "-m comment ",
+                "--comment \"501 test ipv6\" ",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT ",
+                "-p tcp ",
+                "-m multiport ",
+                "--sports 1234:65535 ",
+                "-m comment ",
+                "--comment \"1501 test ipv6\" ",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT ",
+                "-p tcp ",
+                "-m multiport ",
+                "--sports 1234:65535 ",
+                "-m comment",
+                "--comment \"501 test ipv4\" ",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT ",
+                "-p tcp ",
+                "-m multiport ",
+                "--sports 1234:65535 ",
+                "-m comment ",
+                "--comment \"1501 test ipv4\" ",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"501 test\" sport=\"1234-65535\""
+    },
+    "2.37. OUT interface set to l0": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"067 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-o l0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1067 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"067 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-o l0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1067 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"67 test\" outiface=l0"
+    },
+    "2.36. OUT interface set to eth0": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"066 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-o eth0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1066 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"066 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-o eth0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1066 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"66 test\" outiface=eth0"
+    },
+    "2.42. Table set to nat": {
+        "table": "nat",
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A PREROUTING",
+                "-p udp",
+                "--dport 162",
+                "-m comment",
+                "--comment \"072 test ipv4\"",
+                "-m state",
+                "-m state",
+                "--state NEW",
+                "-j REDIRECT",
+                "--to-ports 30162"
+            ]
+        ],
+        "props": "name=\"72 test\" chain=\"PREROUTING\" proto=\"udp\" dport=\"162\" jump=\"REDIRECT\" table=\"nat\" toports=\"30162\" provider=\"iptables\""
+    },
+    "2.40. ICMP type set to echo-reply": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"070 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 0",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p icmp",
+                "-m comment",
+                "--comment \"1070 test ipv4\"",
+                "-m icmp",
+                "--icmp-type 0",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"70 test\" icmp=echo-reply proto=icmp provider=iptables"
+    },
+    "2.15. Action set to accept": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"048 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1048 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"048 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1048 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"48 test\" action=accept"
+    },
+    "2.24. Packet state set to RELATED,ESTABLISHED": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"056 test ipv6\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1056 test ipv6\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"056 test ipv4\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1056 test ipv4\"",
+                "-m state",
+                "--state RELATED,ESTABLISHED",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"56 test\" state=RELATED,ESTABLISHED"
+    },
+    "2.34. IN interface set to eth0": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-i eth0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"064 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1064 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-i eth0",
+                "-p tcp",
+                "-m comment",
+                "--comment \"064 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1064 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"64 test\" iniface=eth0"
+    },
+    "2.45 Create rule with max name length (prop name length = 248, fw comment length = 254)": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"075 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1075 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"075 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1075 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"75 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\""
+    },
+    "2.50 Create POSTROUTING chain rule for ipv4": {
+        "table": "nat",
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A POSTROUTING ",
+                "-s 10.10.10.131/32 ",
+                "-p udp ",
+                "--dport 162 ",
+                "-m comment ",
+                "--comment \"080 postrouting ipv4\" ",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"80 postrouting\" chain=\"POSTROUTING\" proto=\"udp\" dport=\"162\" source=\"10.10.10.131\" provider=\"iptables\" table=\"nat\""
+    },
+    "2.28. Source port set to valid IP v6 address and provider ipv6tables": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-s fe80::202:b3ff:fe1e:8329/128",
+                "-p tcp",
+                "-m comment",
+                "--comment \"060 test ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-s fe80::202:b3ff:fe1e:8329/128",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1060 test ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"60 test\" source=fe80:0000:0000:0000:0202:b3ff:fe1e:8329 provider=ip6tables"
+    },
+    "2.08. Create a rule with Name starting with blank space followed by 5 digits chain number starting with zero and table=filter": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--comment \"1234 ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--comment \"11234 ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--comment \"1234 ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--comment \"11234 ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\" 01234\" table=filter"
+    },
+    "2.27. Source port set to valid IP v4 range": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m iprange",
+                "--src-range 10.10.10.5-10.10.10.10",
+                "-m comment",
+                "--comment \"059 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m iprange",
+                "--src-range 10.10.10.5-10.10.10.10",
+                "-m comment",
+                "--comment \"1059 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"59 test\" source=10.10.10.5-10.10.10.10 provider=iptables"
+    },
+    "2.20. Packet state set to NEW": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"153 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1153 test ipv6\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"153 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1153 test ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"153 test\" state=NEW"
+    },
+    "2.25. Source port set to valid IP v4 address": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 129.167.122.99/32",
+                "-p tcp",
+                "-m comment",
+                "--comment \"057 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-s 129.167.122.99/32",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1057 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"57 test\" source=129.167.122.99 provider=iptables"
+    },
+    "2.21. Packet state set to INVALID": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"874 test ipv6\"",
+                "-m state",
+                "--state INVALID",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1874 test ipv6\"",
+                "-m state",
+                "--state INVALID",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"874 test ipv4\"",
+                "-m state",
+                "--state INVALID",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1874 test ipv4\"",
+                "-m state",
+                "--state INVALID",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"874 test\" state=INVALID"
+    },
+    "2.10. Create a rule with Name 11 digits long and starting with 0": {
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--comment \"1234567890 ipv6\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--comment \"11234567890 ipv6\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--comment \"1234567890 ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--comment \"11234567890 ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"01234567890\""
+    },
+    "2.46 Create FORWARD chain rule for ipv4": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A FORWARD",
+                "-s 10.10.10.0/32 ",
+                "-d 10.10.11.0/32 ",
+                "-p tcp ",
+                "-m comment ",
+                "--comment \"2076 forward ipv4\" ",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"76 forward\" chain=\"FORWARD\" proto=tcp destination=\"10.10.11.0\" source=\"10.10.10.0\" provider=\"iptables\""
+    },
+    "2.30. Destination port set to valid IP v4 address": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-s 129.167.122.89/32",
+                "-m comment",
+                "--comment \"062 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-s 129.167.122.89/32",
+                "-m comment",
+                "--comment \"1062 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"62 test\" source=129.167.122.89 provider=iptables"
+    },
+    "2.49 Create PREROUTING chain rule for ipv6": {
+        "table": "mangle",
+        "expected_ipv6_rules": [
+            [
+                "-A PREROUTING",
+                "-d 2001:db8:0:1:5054:ff:fe01:2345/128 ",
+                "-p udp ",
+                "--dport 162 ",
+                "-m comment",
+                "--comment \"079 prerouting ipv6\" ",
+                "-j ACCEPT"
+            ]
+        ],
+        "expected_ipv4_rules": [],
+        "props": "name=\"79 prerouting\" chain=\"PREROUTING\" proto=\"udp\" dport=\"162\" destination=\"2001:db8:0:1:5054:ff:fe01:2345\" provider=\"ip6tables\" table=\"mangle\""
+    },
+    "2.26. Source port set to valid IP v4 subnet provider iptables": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 10.10.1.0/24",
+                "-p tcp",
+                "-m comment",
+                "--comment \"058 test ipv4\"",
+                "-j ACCEPT"
+            ],
+            [
+                "-A OUTPUT",
+                "-s 10.10.1.0/24",
+                "-p tcp",
+                "-m comment",
+                "--comment \"1058 test ipv4\"",
+                "-j ACCEPT"
+            ]
+        ],
+        "props": "name=\"58 test\" source=10.10.01.0/24 provider=iptables"
+    }
+}

@@ -1,0 +1,308 @@
+{
+   "3. Updates multiple sports IPV4 to single sport": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+		"--sport 110",
+		"-m comment",
+		"--comment \"21421603 test03 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m comment",
+                "--comment \"121421603 test03 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421603 test03\" sport=110",
+        "identifier": "214216_test07"
+    },
+    "6. Updates multiple dports IPV4 to single dport": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"21421606 test06 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"121421606 test06 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421606 test06\" dport=9200",
+        "identifier": "214216_test10"
+    },
+    "9. Updates a single sport IPV4 to multiple sports": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+		"--sports 110,111",
+		"-m comment",
+		"--comment \"21421609 test09 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m comment",
+                "--comment \"121421609 test09 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421609 test09\" sport=110,111",
+        "identifier": "214216_test01"
+    },
+    "14. Updates single dport and single sport IPV4 to single sport multiple dport": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421614 test14 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421614 test14 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421614 test14\" dport=9200,9201",
+        "identifier": "214216_test17A"
+    },
+    "20. Updates single dport and single sport IPV4 to multiple dports and multiple sports": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421620 test20 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421620 test20 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421620 test20\" sport=110,111 dport=9200,9201",
+        "identifier": "214216_test17C"
+    },
+    "21. Deletes multiple dport and multiple sport IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+		"--dports 9200,9201",
+		"-m comment",
+		"--comment \"21421619 test19 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "-m multiport",
+                "--sports 110,111",
+                "-m multiport",
+                "--dports 9200,9201",
+                "-m comment",
+                "--comment \"121421619 test19 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "identifier": "214216_test19",
+        "delete_obj": "True"
+    },
+    "17D. Deletes a single dport and single sport IPV4": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"214216174 test17D ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1214216174 test17D ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "identifier": "214216_test17D",
+        "delete_obj": "True"
+    },
+    "16. Updates single dport and single sport IPV4 to single dport multiple sport": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+		"--dport 9200",
+                "-m multiport",
+                "--sports 110,111",
+		"-m comment",
+		"--comment \"21421616 test16 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+		"--dport 9200",
+                "-m multiport",
+                "--sports 110,111",
+                "-m comment",
+                "--comment \"121421616 test16 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421616 test16\" sport=110,111",
+        "identifier": "214216_test17B"
+    },
+    "18. Updates single dport and multiple sports IPV4 to single dport and single sport": {
+
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+		"--dport 9200",
+		"-m comment",
+		"--comment \"21421618 test18 ipv4\"",
+		"-m state",
+		"--state NEW",
+		"-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"121421618 test18 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "updated_prop": "name=\"21421618 test18\" sport=110",
+        "identifier": "214216_test15"
+    }
+}
+

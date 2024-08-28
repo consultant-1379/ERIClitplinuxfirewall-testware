@@ -1,0 +1,142 @@
+{
+   "1. Set string and algo parameters": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "-s 129.167.122.90/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"027 testnode ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-s 129.167.122.90/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1027 testnode ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"027 testnode\" dport=9200 proto=tcp action=accept provider=iptables source=129.167.122.90 algo=kmp string=\"DELETE /enm_logs-application-\""
+
+    },
+    "2. Set negated source subnet": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "! -s 192.167.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"029 testnode2 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+            ],
+
+            [
+                "-A OUTPUT",
+                "! -s 192.167.0.0/20",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1029 testnode2 ipv4\"",
+                "-m string",
+                "--string \"DELETE /enm_logs-application-\"",
+                "--algo kmp",
+                "--to 65535",
+                "-m state",
+                "--state NEW",
+                "-j DROP"
+
+            ]
+
+        ],
+        "props": "name=\"029 testnode2\" dport=9200 proto=tcp action=drop provider=iptables source='!192.167.0.0/20' algo=kmp string=\"DELETE /enm_logs-application-\""
+   },
+    "3. Set negated IP with whitespace, no string and no algo": {
+        "expected_ipv6_rules": [],
+        "expected_ipv4_rules": [
+            [
+                "-A INPUT",
+                "! -s 192.168.0.95/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"031 testnode3 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "--reject-with icmp-port-unreachable",
+                "-j REJECT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "! -s 192.168.0.95/32",
+                "-p tcp",
+                "--dport 9200",
+                "-m comment",
+                "--comment \"1031 testnode3 ipv4\"",
+                "-m state",
+                "--state NEW",
+                "--reject-with icmp-port-unreachable",
+                "-j REJECT"
+
+            ]
+
+        ],
+        "props": "name=\"031 testnode3\" dport=9200 proto=tcp action=reject provider=iptables source='! 192.168.0.95'"
+    },
+
+           "4. Set the rule with state=none and sport set for ip6tables": {
+        "expected_ipv4_rules": [],
+        "expected_ipv6_rules": [
+            [
+                "-A INPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m comment",
+                "--comment \"086 testnode3 ipv6\"",
+                "-j ACCEPT"
+            ],
+
+            [
+                "-A OUTPUT",
+                "-p tcp",
+                "--sport 110",
+                "-m comment",
+                "--comment \"1086 testnode3 ipv6\"",
+                "-j ACCEPT"
+
+            ]
+
+        ],
+        "props": "name=\"086 testnode3\" sport=110 proto=tcp state=none provider=ip6tables"
+    }
+
+
+}

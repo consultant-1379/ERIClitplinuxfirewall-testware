@@ -1,0 +1,632 @@
+[
+    {
+        "description": "1. Name set to empty",
+        "props": "name=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "2. Name contains underscores",
+        "props": "name=\"1_test\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value '1_test'."
+            }
+        ]
+    },
+    {
+        "description": "3. Name set to all capitals",
+        "props": "name=\"ABC\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'ABC'."
+            }
+        ]
+    },
+    {
+        "description": "4. Name does not start with number",
+        "props": "name=test",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'test'."
+            }
+        ]
+    },
+    {
+        "description": "4a.Name does not contain space",
+        "props": "name=\"21test\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value '21test'."
+            }
+        ]
+    },
+    {
+        "description": "4b.Name does not contain chain number",
+        "props": "name=\"testa testb\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'testa testb'."
+            }
+        ]
+    },
+    {
+        "description": "4c.Name does not contain chain number or space",
+        "props": "name=\"testab\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    Invalid value 'testab'."
+            }
+        ]
+    },
+    {
+        "description": "5. proto is empty",
+        "props": "name=\"1 test\" proto=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"proto\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "6. proto set to uppercase",
+        "props": "name=\"1 test\" proto=ICMP",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"proto\"    Invalid value 'ICMP'."
+            }
+        ]
+    },
+    {
+        "description": "7. action set to empty",
+        "props": "name=\"1 test\" action=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"action\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "8. action set to unsupported value",
+        "props": "name=\"1 test\" action=ACCEPT",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"action\"    Invalid value 'ACCEPT'."
+            }
+        ]
+    },
+    {
+        "description": "9. sport is empty",
+        "props": "name=\"1 test\" sport=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"sport\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "10. sport contains unsupported characters",
+        "props": "name=\"1 test\" sport=abc",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"sport\"    Invalid value 'abc'."
+            }
+        ]
+    },
+    {
+        "description": "11. dport is empty",
+        "props": "name=\"1 test\" dport=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "11a.dport assigned value exceeds the max allowed value",
+        "props": "name=\"1 test \" dport=12345,2,3,4,5,67890,7,8",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    Invalid value '12345,2,3,4,5,67890,7,8'."
+            }
+        ]
+    },
+    {
+        "description": "12. dport contains unsupported characters",
+        "props": "name=\"1 test\" dport=abc",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    Invalid value 'abc'."
+            }
+        ]
+    },
+    {
+        "description": "13.state is empty",
+        "props": "name=\"1 test\" state=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"state\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "15.source is empty",
+        "props": "name=\"1 test\" source=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"source\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "16.source set to unsupported value",
+        "props": "name=\"1 test\" source=_",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"source\"    Invalid value '_'."
+            }
+        ]
+    },
+    {
+        "description": "17.limit is empty",
+        "props": "name=\"1 test\" limit=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "18.limit set to unsupported value",
+        "props": "name=\"1 test\" limit=_",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value '_'."
+            }
+        ]
+    },
+    {
+        "description": "19.table is empty",
+        "props": "name=\"1 test\" table=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "20.table set to unsupported value",
+        "props": "name=\"1 test\" table=input",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value 'input'."
+            }
+        ]
+    },
+    {
+        "description": "21.table set to unsupported value",
+        "props": "name=\"1 test\" destination=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"destination\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "22.destination contains unsupported value",
+        "props": "name=\"1 test\" destination=192,123,122,11",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"destination\"    Invalid value '192,123,122,11'."
+            }
+        ]
+    },
+    {
+        "description": "23.iniface is empty",
+        "props": "name=\"1 test\" iniface=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"iniface\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "24.iniface ontains unsupported characters",
+        "props": "name=\"1 test\" iniface=eth,1",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"iniface\"    Invalid value 'eth,1'."
+            }
+        ]
+    },
+    {
+        "description": "25.iniface contains .",
+        "props": "name=\"1 test\" iniface=\"123,123\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"iniface\"    Invalid value '123,123'."
+            }
+        ]
+    },
+    {
+        "description": "26.outiface is empty",
+        "props": "name=\"1 test\" outiface=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"outiface\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "27.outiface ontains unsupported characters",
+        "props": "name=\"1 test\" outiface=eth,1",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"outiface\"    Invalid value 'eth,1'."
+            }
+        ]
+    },
+    {
+        "description": "28.icmp is empty",
+        "props": "name=\"1 test\" icmp=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"icmp\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "29.icmp set to unsupported value",
+        "props": "name=\"1 test\" icmp=echo-REPLY",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"icmp\"    Invalid value 'echo-REPLY'."
+            }
+        ]
+    },
+    {
+        "description": "30.chain is empty",
+        "props": "name=\"1 test\" chain=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"chain\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "31.chain set to unsupported value",
+        "props": "name=\"1 test\" chain=output",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"chain\"    Invalid value 'output'."
+            }
+        ]
+    },
+    {
+        "description": "32.provider is empty",
+        "props": "name=\"1 test\" provider=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"provider\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "33.provider set to unsupported value",
+        "props": "name=\"1 test\" provider=rubbish",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"provider\"    Invalid value 'rubbish'."
+            }
+        ]
+    },
+    {
+        "description": "34.log_level is empty",
+        "props": "name=\"1 test\" log_level=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_level\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "35.log_level set to unsupported value",
+        "props": "name=\"1 test\" log_level=INFO",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_level\"    Invalid value 'INFO'."
+            }
+        ]
+    },
+    {
+        "description": "36.log_prefix is empty",
+        "props": "name=\"1 test\" log_prefix=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_prefix\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "37.log_prefix contains unsupported value 9",
+        "props": "name=\"1 test\" log_prefix=INFO_9",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"log_prefix\"    Invalid value 'INFO_9'."
+            }
+        ]
+    },
+    {
+        "description": "38.jump is empty",
+        "props": "name=\"1 test\" jump=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"jump\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "39.jump set to unsupported value",
+        "props": "name=\"1 test\" jump=123",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"jump\"    Invalid value '123'."
+            }
+        ]
+    },
+    {
+        "description": "40.Toports is empty",
+        "props": "name=\"1 test\" toports=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"toports\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "41.Toports set to invalid value",
+        "props": "name=\"1 test\" toports=Abc",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"toports\"    Invalid value 'Abc'."
+            }
+        ]
+    },
+    {
+        "description": "42.setdscp is empty",
+        "props": "name=\"1 test\" setdscp=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"setdscp\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "43.setdscp set to invalid value",
+        "props": "name=\"1 test\" setdscp=01",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"setdscp\"    Invalid value '01'."
+            }
+        ]
+    },
+    {
+        "description": "44.limit is empty ",
+        "props": "name=\"1 test\" limit=\"\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value ''."
+            }
+        ]
+    },
+    {
+        "description": "45.limit set to invalid ",
+        "props": "name=\"1 test\" limit=5c",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"limit\"    Invalid value '5c'."
+            }
+        ]
+    },
+    {
+        "description": "45b \"table\" set to invalid \"rawpost\" ",
+        "props": "name=\"102 rawpost\" chain=\"PREROUTING\" table=\"rawpost\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value 'rawpost'."
+            }
+        ]
+    },
+    {
+        "description": "45c \"table\" set to invalid \"broute\" ",
+        "props": "name=\"102 rawpost\" chain=\"PREROUTING\" table=\"broute\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"table\"    Invalid value 'broute'."
+            }
+        ]
+    },
+    {
+        "description": "46. invalid combination of provider and destination",
+        "props": "name=\"1 test\" destination=\"10.10.10.10\" provider=\"ip6tables\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of ip6tables and an IPv4 address for the 'provider' and 'destination' properties."
+            }
+        ]
+    },
+    {
+        "description": "47. invalid combination of provider and source",
+        "props": "name=\"1 test\" source=\"10.10.10.10\" provider=\"ip6tables\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of ip6tables and an IPv4 address for the 'provider' and 'source' properties."
+            }
+        ]
+    },
+    {
+        "description": "48. invalid combination of provider and source",
+        "props": "name=\"1 test\" source=\"fe80::a00:27ff:febc:c8e1/64\" provider=\"iptables\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of iptables and an IPv6 address for the 'provider' and 'source' properties."
+            }
+        ]
+    },
+    {
+        "description": "49. invalid combination of provider and destination",
+        "props": "name=\"1 test\" destination=\"fe80::a00:27ff:febc:c8e1\" provider=\"iptables\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of iptables and an IPv6 address for the 'provider' and 'destination' properties."
+            }
+        ]
+    },
+    {
+        "description": "50. invalid combination of source and destination",
+        "props": "name=\"1 test\" source=\"fe80::a00:27ff:febc:c8e1\" destination=\"10.10.10.5\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of an IPv6 address and an IPv4 address for the 'destination' and 'source' properties."
+            }
+        ]
+    },
+    {
+        "description": "51. invalid combination of source and destination",
+        "props": "name=\"1 test\" destination=\"fe80::a00:27ff:febc:c8e1\" source=\"10.10.10.5\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of an IPv4 address and an IPv6 address for the 'source' and 'destination' properties."
+            }
+        ]
+    },
+    {
+        "description": "52. Sport list too big",
+        "props": "name=\"1 test\" sport=\"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"sport\"    A maximum of 15 ports are accepted."
+            }
+        ]
+    },
+    {
+        "description": "53. Dport list too big",
+        "props": "name=\"1 test\" dport=\"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"dport\"    A maximum of 15 ports are accepted."
+            }
+        ]
+    },
+    {
+        "description": "54. Toports list too big",
+        "props": "name=\"1 test\" toports=\"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"toports\"    A maximum of 15 ports are accepted."
+            }
+        ]
+    },
+    {
+        "description": "55. Invalid source range",
+        "props": "name=\"1 test\" source=10.10.10.10-10.10.10.5 provider=iptables",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"source\"    Invalid range value '10.10.10.10' must come before '10.10.10.5'"
+            }
+        ]
+    },
+    {
+        "description": "56.destination contains unsupported range",
+        "props": "name=\"1 test\" destination=\"10.10.1010-10.10.10.5\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError    Invalid combination of no provider and an IPv4 address for the 'provider' and 'source / destination' properties. (Please set provider to 'iptables')"
+            }
+        ]
+    },
+    {
+        "description": "57a. Check reserved chain number: '990 related established'",
+        "props": "name=\"990 related established\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '990' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57b. Check reserved chain number: '991 local loop'",
+        "props": "name=\"991 local loop\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '991' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57d. Check reserved chain number: '993 puppet'",
+        "props": "name=\"993 puppet\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '993' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57e. Check reserved chain number: '994 mco'",
+        "props": "name=\"994 mco\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '994' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57f. Check reserved chain number: '995 ntp'",
+        "props": "name=\"995 ntp\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '995' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57g. Check reserved chain number: '996 http'",
+        "props": "name=\"996 http\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '996' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57h. Check reserved chain number: '997 cobblerudp'",
+        "props": "name=\"997 cobblerudp\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '997' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57i. Check reserved chain number: '998 ssh'",
+        "props": "name=\"998 ssh\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '998' is a reserved chain number for default rules."
+            }
+        ]
+    },
+    {
+        "description": "57j. Check reserved chain number: '999 drop all'",
+        "props": "name=\"999 drop all\"",
+        "expected_errors": [
+            {
+                "msg": "ValidationError in property: \"name\"    '999' is a reserved chain number for default rules."
+            }
+        ]
+    }
+]
